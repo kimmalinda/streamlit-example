@@ -15,3 +15,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import GridSearchCV
 import joblib
 
+df = pd.read_csv(r'/content/drive/MyDrive/Thesis/ข้อมูลcsv/ver.sci412.csv')
+#เพิ่มคอลัมเกรด
+df['gradeGenEd'] = None
+df['gradeMajor'] = None
+df['gradeOther'] = None

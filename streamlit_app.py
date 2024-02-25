@@ -1,106 +1,69 @@
-#Data
-import numpy as np
+import streamlit as st
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
-#Model
-from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import cross_val_score
-from sklearn.model_selection import cross_val_predict
-from sklearn.metrics import accuracy_score
-from sklearn.naive_bayes import GaussianNB
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
+import numpy as np
 import joblib
 
-df = pd.read_csv(r'ver.sci412.csv')
-#เพิ่มคอลัมเกรด
-df['gradeGenEd'] = None
-df['gradeMajor'] = None
-df['gradeOther'] = None
-#แทนค่าด้วยเลขOneHotEncoder
-def replace(df):
-  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender','part-time','fav','ExamPrepare']])
-  df = pd.concat([df, ohetransform],axis =1).drop(df.columns[[1,2,5,9]], axis=1)
-  return df
+#On Web
+st.title('การทำนายระดับผลการเรียน')
+st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
+st.image('img.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
+st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1 ')
+col1, col2 = st.columns(2)
+with col1:
+  st.text('สาขา')
+  major1 = st.selectbox("สาขาที่เรียน",('คณิตศาสตร์','สถิติ','ฟิสิกส์','ฟิสิกส์ประยุกต์','เคมี','ชีววิทยา','วิทยาการคอมพิวเตอร์','เทคโนโลยีสารสนเทศ'))
+with col2:
+  st.text('เกรดแต่ละรายวิชาชั้นปีที่ 1')
+  grade1 = st.text_input('copy ผลการเรียนชั้นปีที่ 1')
+re = st.button('Predict class of grade')
 
-#แทนค่าBehavior
-def Behavior(a):
-    match a:
-      case "ไม่ขาดเรียนเลย":
-        b = 3
-      case "ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
-        b = 2
-      case "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
-        b = 1
-      case "ขาดเรียนเป็นส่วนใหญ่ (ขาดเกินครึ่งของภาคเรียน)":
-        b = 0
-    return b
-
-#เคลียร์GPA
-def clearGPA(DF):
-  for i in DF.index:
-    if len(DF['GPA'][i]) > 4:
-      DF['GPA'][i] = DF['GPA'][i][-4:]
-  return DF
-
-#แปลงGPAเป็นรูปแบบของคลาส
-def exGPA(a):
-  grade  = float(a)
-  if 3.25 <= grade <= 4.00:
-    b = 'A'
-  elif 2.75 <= grade <= 3.24:
-    b = 'B'
-  elif 2.25 <= grade <= 2.74:
-    b = 'C'
-  else:
-    b = 'D'
-  return b
-
-#รหัสตามสาขา
-def majorcode(a):
-    match a:
-      case "คณิตศาสตร์":
-        b = 252
-      case "สถิติ":
-        b = 255
-      case "เคมี":
-        b = 256
-      case "ชีววิทยา":
-        b = 258
-      case "ฟิสิกส์":
-        b = 261
-      case "ฟิสิกส์ประยุกต์":
-        b = 262
-      case "วิทยาการคอมพิวเตอร์":
-        b = 254
-      case "เทคโนโลยีสารสนเทศ":
-        b = 273
-    return b
+#predict
+def predict(data):
+  model_rf = joblib.load('rf_model.sav')
+  return model_rf.predict(data)
 
 #แปลงเกรดเป็นเลข
 def regrade(a):
   match a:
-    case "A":
-      b = 4
-    case "B+":
-      b = 3.5
-    case "B":
-      b = 3
-    case "C+":
-      b = 2.5
-    case "C":
-      b = 2
-    case "D+":
-      b = 1.5
-    case "D":
-      b = 1
-    case _:
-      b = 0
+  case "A":
+    b = 4
+  case "B+":
+    b = 3.5
+  case "B":
+    b = 3
+  case "C+":
+    b = 2.5
+  case "C":
+    b = 2
+  case "D+":
+    b = 1.5
+  case "D":
+    b = 1
+  case _:
+    b = 0
+return b
+
+#รหัสตามสาขา
+def majorcode(a):
+  match a:
+    case "คณิตศาสตร์":
+      b = 252
+    case "สถิติ":
+      b = 255
+    case "เคมี":
+      b = 256
+    case "ชีววิทยา":
+      b = 258
+    case "ฟิสิกส์":
+      b = 261
+    case "ฟิสิกส์ประยุกต์":
+      b = 262
+    case "วิทยาการคอมพิวเตอร์":
+      b = 254
+    case "เทคโนโลยีสารสนเทศ":
+      b = 273
   return b
+
 #พาร์ทคลีนข้อความ
 def CleanText(text0):
   course=[]
@@ -166,37 +129,36 @@ def GradeGroup(df1,major):
       #df['NonEd'][ind] = genEdgrade3
   return [genEdgrade1,genEdgrade2,genEdgrade3]
 
-DF=df
-DF.GPA = DF.GPA.apply(exGPA)
+#dictClass
+Class = {'A':'Honor Class','B':'Medium Class','C':'Lower Class','D':'Beware'}
 
-for ind in DF.index:
-  CleanText(DF['grade'][ind])
-  res = GradeGroup(CleanText(DF['grade'][ind]),DF['major'][ind])
-  DF['gradeGenEd'][ind] = res[0]
-  DF['gradeMajor'][ind] = res[1]
-  DF['gradeOther'][ind] = res[2]
+#เตรียมข้อมูลเบื้องต้น
+df = pd.DataFrame()
+df = pd.DataFrame(columns=['grade','major','gradeGenEd','gradeMajor','gradeOther'])
+grade=[]
+major=[]
+grade.append(grade1)
+major.append(major1)
+df['grade'] = grade
+df['major'] = major
+df['gradeGenEd'] = None
+df['gradeMajor'] = None
+df['gradeOther'] = None
 
-df_pred = DF.drop(DF.columns[[0,1]], axis=1)
+#คลีนข้อมูลขั้นต้น
+for ind in df.index:
+  CleanText(df['grade'][ind])
+  res = GradeGroup(CleanText(df['grade'][ind]),df['major'][ind])
+  df['gradeGenEd'][ind] = res[0]
+  df['gradeMajor'][ind] = res[1]
+  df['gradeOther'][ind] = res[2]
 
-X = df_pred.drop({'GPA'},axis = 1)
-y = df_pred['GPA']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.30, random_state=42)
+df_pred = df.drop(df.columns[[0,1]], axis=1)
+arr = np.array([[df_pred.gradeGenEd[0],df_pred.gradeMajor[0],df_pred.gradeOther[0]]])
 
+#result
+if re:
+  result = predict(arr)
+  st.text(Class[result[0]])
 
-model_nb = GaussianNB(0.050068723840508415)
-model_nb.fit(X_train,y_train)
-pred = model_nb.predict(X_test)
-
-print(model_nb.score(X_test,y_test))
-print(classification_report(y_test,pred))
-print(confusion_matrix(y_test, pred))
-
-# print best parameter after tuning
-print(model_nb.best_params_)
-
-# print how our model looks after hyper-parameter tuning
-print(model_nb.best_estimator_)
-
-import joblib
-joblib.dump(model_rf, 'rf_model.sav')
 

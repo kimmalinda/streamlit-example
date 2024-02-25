@@ -6,7 +6,6 @@ import joblib
 #On Web
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
-st.image('img.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
 st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1 ')
 col1, col2 = st.columns(2)
 with col1:

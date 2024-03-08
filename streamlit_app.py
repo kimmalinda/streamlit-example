@@ -1,3 +1,9 @@
+import streamlit as st
+import pandas as pd
+import numpy as np
+import joblib
+
+
 st.title('Classifying Iris Flowers')
 st.markdown('Toy model to play to classify iris flowers into setosa, versicolor, virginica')
 st.header('Plant Features')

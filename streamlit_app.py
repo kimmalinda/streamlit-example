@@ -34,7 +34,7 @@ clf.fit(X_train, y_train)
 y_pred = clf.predict(X_test)
 # calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
-print(f'Accuracy: {accuracy}') #Accuracy: 0.91
+#print(f'Accuracy: {accuracy}') #Accuracy: 0.91
 
 joblib.dump(clf, 'rf_model.sav')
 

@@ -29,7 +29,7 @@ y_pred = r.predict(X_test)
 # calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 
-joblib.dump(clf, “rf_model.sav”)
+joblib.dump(clf, "rf_model.sav")
 
 st.title('Classifying Iris Flowers')
 st.markdown('Toy model to play to classify iris flowers into setosa, versicolor, virginica')
@@ -48,7 +48,7 @@ r = st.button('Predict type of Iris')
 
 import joblib
 def predict(data):
-  clf = joblib.load('rf_model.sav')
+  clf = joblib.load("rf_model.sav")
   return clf.predict(data)
 
 if r:

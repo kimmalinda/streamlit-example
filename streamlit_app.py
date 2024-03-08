@@ -231,7 +231,7 @@ def SplitData(df,test_size):
 
   return [X_train,X_test,y_train,y_test]
 
-df = pd.read_csv(r'/content/drive/MyDrive/Thesis/Data_csv/ver57math_BE.csv')
+df = pd.read_csv(r'ver57math_BE.csv')
 #เพิ่มคอลัมเกรด
 df['GPAGenEd'] = None
 df['GPAMajor'] = None
@@ -253,28 +253,47 @@ for ind in df.index:
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-df
 
-joblib.dump(clf, 'rf_model.sav')
+result = SplitData(df,0.2)
+X_train = result[0]
+X_test = result[1]
+y_train = result[2]
+y_test = result[3]
 
-st.title('Classifying Iris Flowers')
-st.markdown('Toy model to play to classify iris flowers into setosa, versicolor, virginica')
-st.header('Plant Features')
+svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
+svm.fit(X_train,y_train)
+pred = svm.predict(X_test)
+
+accuracy = svm.score(X_test,y_test))
+
+joblib.dump(svm, 'svm_model.sav')
+
+#On Web
+st.title('การทำนายระดับผลการเรียน')
+st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
+st.image('img.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
+st.link_button("Go to Reg","https://reg9.nu.ac.th/registrar/home.asp")
+st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1')
 col1, col2 = st.columns(2)
 with col1:
-  st.text('Sepal characteristics')
-  sepal_l = st.slider('Sepal lenght (cm)', 1.0, 8.0, 0.5)
-  sepal_w = st.slider('Sepal width (cm)', 2.0, 4.4, 0.5)
+  st.text('ผลการเรียนชั้นปีที่ 1')
+  grade1 = st.text_input('')
 with col2:
-  st.text('Pepal characteristics')
-  petal_l = st.slider('Petal lenght (cm)', 1.0, 7.0, 0.5)
-  petal_w = st.slider('Petal width (cm)', 0.1, 2.5, 0.5)
+  st.text('พฤติกรรมที่ส่งผลต่อผลการเรียน')
+  gender1 = st.selectbox("เพศ",('ชาย','หญิง'))
+  part_time1 = st.selectbox("part_time",('ทำ','ไม่ทำ'))
+  fav1 = st.selectbox("ชอบสาขาที่เรียนหรือไม่",('ชอบ','ไม่ชอบ'))
+  GenEdBe1 = st.selectbox("พฤติกรรมการเข้าเรียนในรายวิชาศึกษาทั่วไป(วิชามอ)",('ไม่ขาดเรียนเลย','ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)','ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)','ขาดเรียนเป็นส่วนใหญ่ (ขาดเกินครึ่งของภาคเรียน)'))
+  MajorBe1 = st.selectbox("พฤติกรรมการเข้าเรียนในรายวิชาบังคับ(วิชาเอก)",('ไม่ขาดเรียนเลย','ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)','ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)','ขาดเรียนเป็นส่วนใหญ่ (ขาดเกินครึ่งของภาคเรียน)'))
+  OtherBe1 = st.selectbox("พฤติกรรมการเข้าเรียนในรายวิชาอื่นๆ ",('ไม่ขาดเรียนเลย','ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)','ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)','ขาดเรียนเป็นส่วนใหญ่ (ขาดเกินครึ่งของภาคเรียน)'))
+  ExamPrepare1 = st.selectbox("เตรียมตัวสอบอย่างไร",('ทบทวน อ่านหนังสือคนเดียว','ติวหนังสือกับกลุ่มเพื่อน','ไม่อ่าน'))
 
-r = st.button('Predict type of Iris')
+re = st.button('Predict class of grade')
+
 
 def predict(data):
-  clf = joblib.load('rf_model.sav')
-  return clf.predict(data)
+  svm = joblib.load('svm_model.sav')
+  return svm.predict(data)
 
 if r:
   result = predict(np.array([[sepal_l, sepal_w, petal_l, petal_w]]))

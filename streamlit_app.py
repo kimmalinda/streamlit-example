@@ -248,7 +248,7 @@ model_svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
 model_svm.fit(X_train,y_train)
 pred = model_svm.predict(X_test)
 
-acc = model_svm.score(X_test,y_test))
+acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')
 

@@ -34,18 +34,27 @@ re = st.button('Predict class of grade')
 
 
 def Behavior(a):
-  if df.ExamPrepare == "ไม่ขาดเรียนเลย":
+  if a == "ไม่ขาดเรียนเลย":
     b = 3
-  elif df.ExamPrepare =="ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
+  elif a =="ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
     b = 2
-  elif df.ExamPrepare == "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
+  elif a == "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
     b = 1
   else: 
     b = 0
   return b
 
+def cExamPre(a):
+  if a =="ทบทวน อ่านหนังสือคนเดียว":
+    b = "w_friend"
+  elif a== "ติวหนังสือกับกลุ่มเพื่อน":
+    b = "own"
+  else: 
+    b = "No"
+  return b
+
 def oh(df):
-  Behavior(df)
+  cExamPre(df.ExamPrepare)
   ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
   ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
   df = pd.concat([df, ohetransform],axis =1)
@@ -200,3 +209,25 @@ def SplitData(df,test_size):
   y_test = df_test['ClassGPAX']
 
   return [X_train,X_test,y_train,y_test]
+
+df = pd.read_csv(r'/content/drive/MyDrive/Thesis/Data_csv/ver57math_BE.csv')
+#เพิ่มคอลัมเกรด
+df['GPAGenEd'] = None
+df['GPAMajor'] = None
+df['GPAOther'] = None
+
+df = oh(df)
+choice(df)
+Behavior(df.GenEdCA)
+Behavior(df.MajorCA)
+Behavior(df.OtherCA)
+clearGPA(df)
+cGPAX(df.ClassGPAX) 
+for ind in df.index:
+  res = CleanText(df['gradeText'][ind],df['major'][ind])
+  df['GPAGenEd'][ind] = res[0]
+  df['GPAMajor'][ind] = res[1]
+  df['GPAOther'][ind] = res[2]
+  
+df = df.drop(df.columns[[0,1,3,9]], axis=1)
+df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)

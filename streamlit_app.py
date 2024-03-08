@@ -27,7 +27,7 @@ clf = RandomForestClassifier(n_estimators=100)
 # train the classifier on the training data
 clf.fit(X_train, y_train)
 # predict on the test set
-y_pred = r.predict(X_test)
+y_pred = clf.predict(X_test)
 # calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 

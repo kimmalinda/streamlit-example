@@ -64,6 +64,13 @@ def oh(df):
   df = pd.concat([df, ohetransform],axis =1)
   return df
 
+def gender():
+  if df.gender == 'ชาย':
+    b = 0
+  elif df.gender == 'หญิง':
+    b=1
+  return b
+
 def choice(a):
   if df['part_time','Good_math'] == "ชอบ" | "ทำ":
     b = 1
@@ -220,7 +227,7 @@ df['GPAGenEd'] = None
 df['GPAMajor'] = None
 df['GPAOther'] = None
 
-df = oh(df)
+
 choice(df)
 Behavior(df.GenEdCA)
 Behavior(df.MajorCA)

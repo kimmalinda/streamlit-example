@@ -49,3 +49,21 @@ def choice(a):
   elif "ไม่ชอบ" | "ไม่ได้ทำ":
     b = 0
   return b
+
+def clearGPA(df):
+  for i in df.index:
+    if len(df['ClassGPAX'][i]) > 4:
+      df['ClassGPAX'][i] = df['ClassGPAX'][i][-4:]
+  return df
+
+def cGPAX(a):
+  grade  = float(a)
+  if 3.25 <= grade <= 4.00:
+    b = 'Honor Class'
+  elif 2.75 <= grade <= 3.24:
+    b = 'Medium Class'
+  elif 2.25 <= grade <= 2.74:
+    b = 'Lower Class'
+  else:
+    b = 'Beware Class'
+  return b

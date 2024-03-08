@@ -69,20 +69,20 @@ def cGPAX(a):
   return b
 
 def GradeToNum(a):
-  if case "A":
-      b = 4
-    case "B+":
-      b = 3.5
-    case "B":
-      b = 3
-    case "C+":
-      b = 2.5
-    case "C":
-      b = 2
-    case "D+":
-      b = 1.5
-    case "D":
-      b = 1
-    case _:
-      b = 0
+  if df1.Grade == "A":
+    b = 4
+  elif df1.Grade =="B+":
+    b = 3.5
+  elif df1.Grade =="B":
+    b = 3
+  elif df1.Grade =="C+":
+    b = 2.5
+  elif df1.Grade =="C":
+    b = 2
+  elif df1.Grade =="D+":
+    b = 1.5
+  elif df1.Grade == "D":
+    b = 1
+  else:
+    b = 0
   return b

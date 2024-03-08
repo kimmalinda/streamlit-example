@@ -13,12 +13,6 @@ with col2:
 
 r = st.button('Predict type of Iris')
 
-def predict(data):
-  clf = joblib.load('rf_model.sav')
-  return clf.predict(data)
 
-if r:
-  result = predict(np.array([[sepal_l, sepal_w, petal_l, petal_w]]))
-  st.text(result[0])
 
 

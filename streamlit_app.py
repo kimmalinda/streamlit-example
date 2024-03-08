@@ -112,24 +112,24 @@ def CleanText(text0,major):
   df1['Credit'] = credit
   df1['Grade'] = grade
   GradeToNum()
-
-  match major:
-    case "Math":
-      mc = 252
-    case "Stat":
-      mc = 255
-    case "Chem":
-      mc = 256
-    case "Bio":
-      mc = 258
-    case "Phys":
-      mc = 261
-    case "App-Phys":
-      mc = 262
-    case "Com-Sci":
-      mc = 254
-    case "IT":
-      mc = 273
+  
+  if major == 'คณิตศาสตร์':
+    mc = 252
+  elif major == "สถิติ":
+    mc = 255
+  elif major ==  "เคมี":
+    mc = 256
+  elif major ==  "ชีววิทยา":
+    mc = 258
+  elif major ==  "ฟิสิกส์":
+    mc = 261
+  elif major ==  "ฟิสิกส์ประยุกต์":
+    mc = 262
+  elif major == "วิทยาการคอมพิวเตอร์":
+    mc = 254
+  elif major ==  "เทคโนโลยีสารสนเทศ":
+    mc = 273
+    
   genEdgrade = 0
   genEdcredit = 0
   majorgrade = 0

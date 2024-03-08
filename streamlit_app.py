@@ -18,9 +18,16 @@ with col2:
   petal_w = st.slider('Petal width (cm)', 0.1, 2.5, 0.5)
 
 r = st.button('Predict type of Iris')
+def predict(data):
+  clf = joblib.load('rf_model.sav')
+  return clf.predict(data)
+
+if r:
+  result = predict(np.array([[sepal_l, sepal_w, petal_l, petal_w]]))
+  st.text(result[0])
 
 # Read original dataset
-iris_df = pd.read_csv('/content/drive/MyDrive/Thesis/ข้อมูลcsv/iris.csv')
+iris_df = pd.read_csv('iris.csv')
 iris_df.sample(frac=1)
 # selecting features and target data
 X = iris_df[['sepal.length', 'sepal.width', 'petal.length', 'petal.width']]
@@ -37,6 +44,8 @@ y_pred = clf.predict(X_test)
 # calculate accuracy
 accuracy = accuracy_score(y_test, y_pred)
 print(f'Accuracy: {accuracy}') #Accuracy: 0.91
+
+joblib.dump(clf, 'rf_model.sav')
 
 
 

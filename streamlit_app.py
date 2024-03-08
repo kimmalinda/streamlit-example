@@ -32,8 +32,8 @@ with col2:
 
 re = st.button('Predict class of grade')
 
-a == df.ExamPrepare
 def Behavior(a):
+  a = df.ExamPrepare
   match a:
     case "ไม่ขาดเรียนเลย":
       b = 3

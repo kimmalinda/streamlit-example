@@ -33,20 +33,20 @@ with col2:
 re = st.button('Predict class of grade')
 
 def Behavior(a):
-  if ExamPrepare == "ไม่ขาดเรียนเลย":
+  if df.ExamPrepare == "ไม่ขาดเรียนเลย":
     b = 3
-  elif ExamPrepare =="ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
+  elif df.ExamPrepare =="ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
     b = 2
-  elif ExamPrepare == "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
+  elif df.ExamPrepare == "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
     b = 1
   else: 
     b = 0
   return b
 
 def choice(a):
-  if "ชอบ" | "ทำ":
+  if df['part_time','Good_math'] == "ชอบ" | "ทำ":
     b = 1
-  elif "ไม่ชอบ" | "ไม่ได้ทำ":
+  elif df['part_time','Good_math'] =="ไม่ชอบ" | "ไม่ได้ทำ":
     b = 0
   return b
 
@@ -66,4 +66,23 @@ def cGPAX(a):
     b = 'Lower Class'
   else:
     b = 'Beware Class'
+  return b
+
+def GradeToNum(a):
+  if case "A":
+      b = 4
+    case "B+":
+      b = 3.5
+    case "B":
+      b = 3
+    case "C+":
+      b = 2.5
+    case "C":
+      b = 2
+    case "D+":
+      b = 1.5
+    case "D":
+      b = 1
+    case _:
+      b = 0
   return b

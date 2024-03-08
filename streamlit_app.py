@@ -222,7 +222,6 @@ def SplitData(df,test_size):
   test_index = A[:nA] + B[:nB] + C[:nC] + D[:nD]
   train_index = list(set(total_index)-set(test_index))
 
-  #result = []
   df_test = df.loc[test_index]
   df_train = df.loc[train_index]
   X_train = df_train.drop({'ClassGPAX'},axis = 1)

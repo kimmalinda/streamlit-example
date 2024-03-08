@@ -12,7 +12,15 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 
-
+def cExamPre():
+  match a:
+    case "ทบทวน อ่านหนังสือคนเดียว":
+      b = "w_friend"
+    case "ติวหนังสือกับกลุ่มเพื่อน":
+      b = "own"
+    case "ไม่อ่าน":
+      b = "No"
+  return b
 
 
 def oh(df):
@@ -23,8 +31,8 @@ def oh(df):
   return df
 
 #แทนค่าBehavior
-def Behavior(a):
-  match a:
+def Behavior(c):
+  match c:
     case "ไม่ขาดเรียนเลย":
       b = 3
     case "ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
@@ -35,8 +43,8 @@ def Behavior(a):
       b = 0
   return b
 
-def choice(a):
-  match a:
+def choice(d):
+  match d:
     case "ชอบ" | "ทำ":
       b = 1
     case "ไม่ชอบ" | "ไม่ได้ทำ":
@@ -78,8 +86,8 @@ def cGPAX(a):
 
 
 #แปลงเกรดเป็นเลข
-def GradeToNum(a):
-  match a:
+def GradeToNum(e):
+  match e:
     case "A":
       b = 4
     case "B+":
@@ -98,8 +106,8 @@ def GradeToNum(a):
       b = 0
   return b
 
-def cmajor(a):
-  match a:
+def cmajor(u):
+  match u:
     case "คณิตศาสตร์":
       b = "Math"
     case "สถิติ":

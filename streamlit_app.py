@@ -42,3 +42,10 @@ def Behavior(a):
   else: 
     b = 0
   return b
+
+def choice(a):
+  if "ชอบ" | "ทำ":
+    b = 1
+  elif "ไม่ชอบ" | "ไม่ได้ทำ":
+    b = 0
+  return b

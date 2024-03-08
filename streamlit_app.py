@@ -12,7 +12,7 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 # Read original dataset
-iris_df = pd.read_csv('/content/drive/MyDrive/Thesis/Data_csv/iris.csv')
+iris_df = pd.read_csv('iris.csv')
 iris_df.sample(frac=1)
 # selecting features and target data
 X = iris_df[['sepal.length', 'sepal.width', 'petal.length', 'petal.width']]

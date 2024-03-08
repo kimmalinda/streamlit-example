@@ -15,8 +15,6 @@ from sklearn.ensemble import RandomForestClassifier
 
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
-st.image('img.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
-st.link_button("Go to Reg","https://reg9.nu.ac.th/registrar/home.asp")
 st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1')
 col1, col2 = st.columns(2)
 with col1:

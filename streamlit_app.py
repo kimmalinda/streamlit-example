@@ -13,7 +13,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 
 def cExamPre():
-    match a:
+    match ExamPrepare:
       case "ทบทวน อ่านหนังสือคนเดียว":
           b = "w_friend"
       case "ติวหนังสือกับกลุ่มเพื่อน":

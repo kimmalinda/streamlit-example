@@ -32,12 +32,7 @@ with col2:
 
 re = st.button('Predict class of grade')
 
-def oh(df):
-  df.ExamPrepare = df.ExamPrepare.apply(cExamPre)
-  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
-  df = pd.concat([df, ohetransform],axis =1)
-  return df
+
 def Behavior(a):
   if df.ExamPrepare == "ไม่ขาดเรียนเลย":
     b = 3
@@ -48,6 +43,13 @@ def Behavior(a):
   else: 
     b = 0
   return b
+
+def oh(df):
+  Behavior(df)
+  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
+  ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
+  df = pd.concat([df, ohetransform],axis =1)
+  return df
 
 def choice(a):
   if df['part_time','Good_math'] == "ชอบ" | "ทำ":

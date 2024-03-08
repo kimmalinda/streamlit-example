@@ -32,6 +32,10 @@ with col2:
 
 re = st.button('Predict class of grade')
 
+#predict
+def predict(data):
+  model_svm = joblib.load('svm_model.sav')
+  return model_svm.predict(data)
 
 def Behavior(a):
   if a == "ไม่ขาดเรียนเลย":
@@ -231,3 +235,98 @@ for ind in df.index:
   
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
+
+
+result = SplitData(df,0.2)
+X_train = result[0]
+X_test = result[1]
+y_train = result[2]
+y_test = result[3]
+
+
+model_svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
+model_svm.fit(X_train,y_train)
+pred = model_svm.predict(X_test)
+
+acc = model_svm.score(X_test,y_test))
+
+joblib.dump(model_svm, 'svm_model.sav')
+
+#แทนค่าด้วยเลขOneHotEncoder
+p7=0
+p8=0
+p9=0
+p10=0
+p11=0
+p13=0
+p14=0
+p15=0
+
+if gender1 == 'ชาย':
+  p7 = 1
+  p8 = 0
+else:
+  p7 = 0
+  p8 = 1
+if part_time1  == 'ทำ':
+  p9 = 1
+  p10 = 0
+else:
+  p9 = 0
+  p10 = 1
+if fav1 == 'ชอบ':
+  p11 = 1
+  p12 = 0
+else:
+  p11 = 0
+  p12 = 1
+if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
+  p13 = 1
+  p14 = 0
+  p15 = 0
+elif ExamPrepare1 == 'ทบทวน อ่านหนังสือคนเดียว':
+  p13 = 0
+  p14 = 1
+  p15 = 0
+else:
+  p13 = 0
+  p14 = 0
+  p15 = 1
+
+df = pd.DataFrame()
+df = pd.DataFrame(columns=['grade','GenEdBe','MajorBe','OtherBe','gradeGenEd','gradeMajor','gradeOther'])
+grade=[]
+GenEdBe=[]
+MajorBe=[]
+OtherBe=[]
+grade.append(grade1)
+GenEdBe.append(GenEdBe1)
+MajorBe.append(MajorBe1)
+OtherBe.append(OtherBe1)
+df['grade'] = grade
+df['GenEdBe'] = GenEdBe
+df['MajorBe'] = MajorBe
+df['OtherBe'] = OtherBe
+df['gradeGenEd'] = None
+df['gradeMajor'] = None
+df['gradeOther'] = None
+
+#คลีนข้อมูล57
+Behavior(df.GenEdBe) 
+Behavior(df.MajorBe) 
+Behavior(df.OtherBe) 
+
+for ind in df.index:
+  res = CleanText(df['gradeText'][ind],df['major'][ind])
+  df['gradeGenEd'][ind] = res[0]
+  df['gradeMajor'][ind] = res[1]
+  df['gradeOther'][ind] = res[2]
+
+df_pred = df.drop(df.columns[[0]], axis=1)
+arr = np.array([[df_pred.GenEdBe[0],df_pred.MajorBe[0],df_pred.OtherBe[0],df_pred.gradeGenEd[0],df_pred.gradeMajor[0],df_pred.gradeOther[0],
+p7,p8,p9,p10,p11,p12,p13,p14,p15]])
+
+#result
+if re:
+  result = predict(arr)
+  st.text(Class[result[0]])

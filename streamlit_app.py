@@ -23,7 +23,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, stratif
 # create an instance of the random forest classifier
 clf = RandomForestClassifier(n_estimators=100)
 # train the classifier on the training data
-r = clf.fit(X_train, y_train)
+clf.fit(X_train, y_train)
 # predict on the test set
 y_pred = r.predict(X_test)
 # calculate accuracy

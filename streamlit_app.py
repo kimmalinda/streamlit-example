@@ -13,13 +13,14 @@ from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 
 def cExamPre():
+    match a:
     case "ทบทวน อ่านหนังสือคนเดียว":
       b = "w_friend"
     case "ติวหนังสือกับกลุ่มเพื่อน":
       b = "own"
     case "ไม่อ่าน":
       b = "No"
-  return b
+    return b
 
 
 def oh(df):

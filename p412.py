@@ -209,27 +209,21 @@ def SplitData(df,test_size):
 
   return [X_train,X_test,y_train,y_test]
 
-df = pd.read_csv(r'ver57math_BE.csv')
+df = pd.read_csv(r'ver.sci412.csv')
 #เพิ่มคอลัมเกรด
 df['GPAGenEd'] = None
 df['GPAMajor'] = None
 df['GPAOther'] = None
 
-
-choice(df)
-Behavior(df.GenEdCA)
-Behavior(df.MajorCA)
-Behavior(df.OtherCA)
-clearGPA(df)
 cGPAX(df.ClassGPAX) 
 for ind in df.index:
   res = CleanText(df['gradeText'][ind],df['major'][ind])
   df['GPAGenEd'][ind] = res[0]
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
-  
-df = df.drop(df.columns[[0,1,3,9]], axis=1)
-df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
+
+df = df.drop(df.columns[[0,1]], axis=1)
+
 
 
 result = SplitData(df,0.2)
@@ -246,3 +240,32 @@ pred = model_svm.predict(X_test)
 acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')
+
+#เตรียมข้อมูลเบื้องต้น
+df1 = pd.DataFrame()
+df1 = pd.DataFrame(columns=['grade','major','gradeGenEd','gradeMajor','gradeOther'])
+grade=[]
+major=[]
+grade.append(grade1)
+major.append(major1)
+df1['grade'] = grade
+df1['major'] = major
+df1['gradeGenEd'] = None
+df1['gradeMajor'] = None
+df1['gradeOther'] = None
+
+#คลีนข้อมูลขั้นต้น
+for ind in df1.index:
+  CleanText(df1['grade'][ind])
+  res = GradeGroup(CleanText(df1['grade'][ind]),df1['major'][ind])
+  df1['gradeGenEd'][ind] = res[0]
+  df1['gradeMajor'][ind] = res[1]
+  df1['gradeOther'][ind] = res[2]
+
+df_pred = df1.drop(df.columns[[0,1]], axis=1)
+arr = np.array([[df_pred.gradeGenEd[0],df_pred.gradeMajor[0],df_pred.gradeOther[0]]])
+
+#result
+if re:
+  result = predict(arr)
+  st.text(Class[result[0]])

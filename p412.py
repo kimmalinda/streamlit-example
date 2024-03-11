@@ -222,7 +222,7 @@ for ind in df1.index:
   df1['gradeMajor'][ind] = res[1]
   df1['gradeOther'][ind] = res[2]
 
-df1= df1.drop(df.columns[[0,1]], axis=1)
+df1= df1.drop(df1.columns[[0,1]], axis=1)
 arr = np.array([[df1.gradeGenEd[0],df1.gradeMajor[0],df1.gradeOther[0]]])
 
 #result

@@ -37,20 +37,20 @@ def cGPAX(a):
     b = 'Beware Class'
   return b
 
-def GradeToNum():
-  if df1.Grade == "A":
+def GradeToNum(a):
+  if a == "A":
     b = 4
-  elif df1.Grade =="B+":
+  elif a =="B+":
     b = 3.5
-  elif df1.Grade =="B":
+  elif a =="B":
     b = 3
-  elif df1.Grade =="C+":
+  elif a =="C+":
     b = 2.5
-  elif df1.Grade =="C":
+  elif a =="C":
     b = 2
-  elif df1.Grade =="D+":
+  elif a =="D+":
     b = 1.5
-  elif df1.Grade == "D":
+  elif a == "D":
     b = 1
   else:
     b = 0
@@ -80,8 +80,9 @@ def CleanText(text0,major):
   df1['Course'] = course
   df1['Credit'] = credit
   df1['Grade'] = grade
-  GradeToNum()
-  
+  df1.Grade = df1.Grade.apply(GradeToNum)
+
+
   if major == 'คณิตศาสตร์':
     mc = 252
   elif major == "สถิติ":

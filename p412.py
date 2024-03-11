@@ -24,54 +24,7 @@ re = st.button('Predict class of grade')
 def predict(data):
   model_svm = joblib.load('svm_model.sav')
   return model_svm.predict(data)
-
-def Behavior(a):
-  if a == "ไม่ขาดเรียนเลย":
-    b = 3
-  elif a =="ขาดเรียนบ้างเล็กน้อย (ขาดเรียนไม่เกิน 3 ครั้งของภาคเรียน)":
-    b = 2
-  elif a == "ขาดเรียนระดับปานกลาง (ขาดเรียนเกิน 3 ครั้ง แต่ไม่ถึงครึ่งของภาคเรียน)":
-    b = 1
-  else: 
-    b = 0
-  return b
-
-def cExamPre(a):
-  if a =="ทบทวน อ่านหนังสือคนเดียว":
-    b = "w_friend"
-  elif a== "ติวหนังสือกับกลุ่มเพื่อน":
-    b = "own"
-  else: 
-    b = "No"
-  return b
-
-def oh(df):
-  cExamPre(df.ExamPrepare)
-  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
-  df = pd.concat([df, ohetransform],axis =1)
-  return df
-
-def gender():
-  if df.gender == 'ชาย':
-    b = 0
-  elif df.gender == 'หญิง':
-    b=1
-  return b
-
-def choice(a):
-  if df['part_time','Good_math'] == "ชอบ" | "ทำ":
-    b = 1
-  elif df['part_time','Good_math'] =="ไม่ชอบ" | "ไม่ได้ทำ":
-    b = 0
-  return b
-
-def clearGPA(df):
-  for i in df.index:
-    if len(df['ClassGPAX'][i]) > 4:
-      df['ClassGPAX'][i] = df['ClassGPAX'][i][-4:]
-  return df
-
+  
 def cGPAX(a):
   grade  = float(a)
   if 3.25 <= grade <= 4.00:

@@ -60,22 +60,18 @@ def cExamPre(a):
 #แทนค่าด้วยเลขOneHotEncoder
 p7=0
 p8=0
-
 p11=0
 p13=0
 p14=0
 p15=0
 
-if gender1 == 'ชาย':
+if gender == 'ชาย':
   p7 = 1
   p8 = 0
 else:
   p7 = 0
   p8 = 1
-else:
-  p11 = 0
-  p12 = 1
-if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
+if ExamPrepare == 'ติวหนังสือกับกลุ่มเพื่อน':
   p13 = 1
   p14 = 0
   p15 = 0
@@ -252,12 +248,20 @@ df['GPAMajor'] = None
 df['GPAOther'] = None
 
 
-choice(df)
-Behavior(df.GenEdCA)
-Behavior(df.MajorCA)
-Behavior(df.OtherCA)
+df.Good_math = df.Good_math.apply(choice)
+df.part_time= df.part_time.apply(choice)
+df.GenEdCA = df.GenEdCA.apply(Behavior)
+df.MajorCA = df.MajorCA.apply(Behavior)
+df.OtherCA = df.OtherCA.apply(Behavior)
 clearGPA(df)
-cGPAX(df.ClassGPAX) 
+df.ClassGPAX = df.ClassGPAX.apply(cGPAX)
+for ind in df.index:
+  res = CleanText(df['gradeText'][ind],df['major'][ind])
+  df['GPAGenEd'][ind] = res[0]
+  df['GPAMajor'][ind] = res[1]
+  df['GPAOther'][ind] = res[2]
+df = df.drop(df.columns[[0,1,3,9]], axis=1)
+df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
 for ind in df.index:
   res = CleanText(df['gradeText'][ind],df['major'][ind])
   df['GPAGenEd'][ind] = res[0]

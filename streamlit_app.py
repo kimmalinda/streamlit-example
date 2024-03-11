@@ -3,7 +3,8 @@ import joblib
 #Data
 import numpy as np
 import pandas as pd
-from sklearn.preprocessing import OneHotEncoder
+import math
+import random
 #Model
 from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
 from sklearn.model_selection import train_test_split
@@ -11,7 +12,6 @@ from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier
 
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
@@ -57,24 +57,48 @@ def cExamPre(a):
     b = "No"
   return b
 
-def oh(df):
-  cExamPre(df.ExamPrepare)
-  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
-  df = pd.concat([df, ohetransform],axis =1)
-  return df
+#แทนค่าด้วยเลขOneHotEncoder
+p7=0
+p8=0
 
-def gender():
-  if df.gender == 'ชาย':
+p11=0
+p13=0
+p14=0
+p15=0
+
+if gender1 == 'ชาย':
+  p7 = 1
+  p8 = 0
+else:
+  p7 = 0
+  p8 = 1
+else:
+  p11 = 0
+  p12 = 1
+if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
+  p13 = 1
+  p14 = 0
+  p15 = 0
+elif ExamPrepare1 == 'ทบทวน อ่านหนังสือคนเดียว':
+  p13 = 0
+  p14 = 1
+  p15 = 0
+else:
+  p13 = 0
+  p14 = 0
+  p15 = 1
+
+def choice1(a):
+  if df['part_time'] == "ทำ":
+    b = 1
+  elif df['part_time'] =="ไม่ได้ทำ":
     b = 0
-  elif df.gender == 'หญิง':
-    b=1
   return b
 
-def choice(a):
-  if df['part_time','Good_math'] == "ชอบ" | "ทำ":
+def choice2(a):
+  if df['Good_math'] == "ชอบ":
     b = 1
-  elif df['part_time','Good_math'] =="ไม่ชอบ" | "ไม่ได้ทำ":
+  elif df['Good_math'] =="ไม่ชอบ":
     b = 0
   return b
 

@@ -25,8 +25,8 @@ def predict(data):
   model_svm = joblib.load('svm_model.sav')
   return model_svm.predict(data)
   
-def cGPAX(df.ClassGPAX):
-  grade  = float(df.ClassGPAX)
+def cGPAX(df):
+  grade  = float(df)
   if 3.25 <= grade <= 4.00:
     b = 'Honor Class'
   elif 2.75 <= grade <= 3.24:
@@ -168,7 +168,7 @@ df['GPAGenEd'] = None
 df['GPAMajor'] = None
 df['GPAOther'] = None
 
-cGPAX(df.ClassGPAX) 
+cGPAX(df['ClassGPAX']) 
 for ind in df.index:
   res = CleanText(df['gradeText'][ind],df['major'][ind])
   df['GPAGenEd'][ind] = res[0]

@@ -162,7 +162,7 @@ def SplitData(df,test_size):
 
   return [X_train,X_test,y_train,y_test]
 
-df = pd.read_csv(r'ver.sci412.csv')
+df = pd.read_csv(r'ver412.csv')
 #เพิ่มคอลัมเกรด
 df['GPAGenEd'] = None
 df['GPAMajor'] = None

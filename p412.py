@@ -26,6 +26,7 @@ def predict(data):
   return model_svm.predict(data)
   
 def cGPAX(a):
+  a = df.ClassGPAX
   grade  = float(a)
   if 3.25 <= grade <= 4.00:
     b = 'Honor Class'
@@ -168,7 +169,7 @@ df['GPAGenEd'] = None
 df['GPAMajor'] = None
 df['GPAOther'] = None
 
-cGPAX(df.ClassGPAX) 
+cGPAX(df) 
 for ind in df.index:
   res = CleanText(df['gradeText'][ind],df['major'][ind])
   df['GPAGenEd'][ind] = res[0]
@@ -209,8 +210,7 @@ df1['gradeOther'] = None
 
 #คลีนข้อมูลขั้นต้น
 for ind in df1.index:
-  CleanText(df1['grade'][ind])
-  res = GradeGroup(CleanText(df1['grade'][ind]),df1['major'][ind])
+  res = CleanText(df1['grade'][ind],df1['major'][ind])
   df1['gradeGenEd'][ind] = res[0]
   df1['gradeMajor'][ind] = res[1]
   df1['gradeOther'][ind] = res[2]

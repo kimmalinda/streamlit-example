@@ -2,6 +2,4 @@ pandas
 streamlit
 joblib
 scikit-learn
-math
 random
-

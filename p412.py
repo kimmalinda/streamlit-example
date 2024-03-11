@@ -16,7 +16,7 @@ from sklearn.svm import SVC
 #On Web
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
-st.image("ขั้นตอน.png")
+st.image("ขั้นตอน.png",caption='ขั้นตอนวิธีการกรอกผลการเรียนแต่รายวิชาในชั้นปีที่ 1')
 st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1 ')
 col1, col2 = st.columns(2)
 with col1:

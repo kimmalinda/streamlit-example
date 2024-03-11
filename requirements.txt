@@ -2,6 +2,6 @@ pandas
 streamlit
 joblib
 scikit-learn
-math
+math == 24.0
 random
 

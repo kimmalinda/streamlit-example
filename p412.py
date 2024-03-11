@@ -228,4 +228,4 @@ arr = np.array([[df1.gradeGenEd[0],df1.gradeMajor[0],df1.gradeOther[0]]])
 #result
 if re:
   result = predict(arr)
-  st.text(Class[result[0]])
+  st.text([result[0]])

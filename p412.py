@@ -5,7 +5,7 @@ import numpy as np
 import pandas as pd
 import math
 import random
-from PIL import Image
+#from PIL import Image
 from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
@@ -16,7 +16,7 @@ from sklearn.svm import SVC
 #On Web
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
-st.image('ขั้นตอนการกรอก.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
+#st.image('ขั้นตอนการกรอก.png',caption='ขั้นตอนการกรอกผลการเรียนแต่ละวิชาชั้นปีที่ 1')
 st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1 ')
 col1, col2 = st.columns(2)
 with col1:

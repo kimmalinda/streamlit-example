@@ -4,4 +4,4 @@ joblib
 scikit-learn
 math
 random
-image
+Image

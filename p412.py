@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import math
 import random
+import image
 from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score

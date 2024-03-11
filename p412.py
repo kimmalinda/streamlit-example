@@ -3,7 +3,7 @@ import joblib
 #Data
 import numpy as np
 import pandas as pd
-
+import math
 
 #On Web
 st.title('การทำนายระดับผลการเรียน')

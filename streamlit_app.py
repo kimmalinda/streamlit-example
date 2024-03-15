@@ -283,9 +283,7 @@ def CleanTextpred(text0):
   df1['Credit'] = credit
   df1['Grade'] = grade
   df1.Grade = df1.Grade.apply(GradeToNum)
-
- 
-      
+  
   genEdgrade = 0
   genEdcredit = 0
   majorgrade = 0
@@ -311,6 +309,7 @@ def CleanTextpred(text0):
       othercredit = othercredit + df1['Credit'][i]
       othergrade = (C + df1['Credit'][i]*df1['Grade'][i])/othercredit
   return [genEdgrade,majorgrade,othergrade]
+  
 p7=0
 p8=0
 p9=0
@@ -347,28 +346,25 @@ else:
   p15 = 0
   
 dfNew = pd.DataFrame()
-dfNew = pd.DataFrame(columns=['part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','GPAGenEd','GPAMajor','GPAOther'])
+dfNew = pd.DataFrame(columns=[,'gradeText','GenEdCA','MajorCA','OtherCA','GPAGenEd','GPAMajor','GPAOther'])
 
 
-part_time = []
+
 gradeText=[]
-Good_math=[]
+
 GenEdCA=[]
 MajorCA=[]
 OtherCA=[]
-ExamPre=[]
 
-part_time.append(part_time1)
+
 gradeText.append(grade1)
-Good_math.append(fav1)
 GenEdCA.append(GenEdBe1)
 MajorCA.append(MajorBe1)
 OtherCA.append(OtherBe1)
 
 
-dfNew['part_time']=part_time
 dfNew['gradeText'] = gradeText
-dfNew['Good_math']=Good_math
+
 dfNew['GenEdCA'] = GenEdCA
 dfNew['MajorCA'] = MajorCA
 dfNew['OtherCA'] = OtherCA
@@ -384,12 +380,12 @@ dfNew.GenEdCA = dfNew.GenEdCA.apply(Behavior)
 dfNew.MajorCA = dfNew.MajorCA.apply(Behavior)
 dfNew.OtherCA = dfNew.OtherCA.apply(Behavior)
 
-for ind in df.index:
+for ind in dfNew.index:
   res = CleanTextpred(dfNew['gradeText'][ind])
   dfNew['GPAGenEd'][ind] = res[0]
   dfNew['GPAMajor'][ind] = res[1]
   dfNew['GPAOther'][ind] = res[2]
-dfNew = dfNew.drop(dfNew.columns[[1]], axis=1)
+dfNew = dfNew.drop(dfNew.columns[[0]], axis=1)
 st.text(dfNew)
 arr = np.array([[p9,p11,dfNew.GenEdCA[0],dfNew.MajorCA[0],dfNew.OtherCA[0],dfNew.GPAGenEd[0],dfNew.GPAMajor[0],
                  dfNew.GPAOther[0],p7,p8,p13,p14,p15]])

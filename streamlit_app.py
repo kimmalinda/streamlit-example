@@ -176,7 +176,7 @@ def CleanText(text0,major):
         genEdgrade = (A + df1['Credit'][i]*df1['Grade'][i])/genEdcredit
       else:
           continue
-    elif df1['Course'][i] // 1000 == mc:
+    elif df1['Course'][i] // 1000 == 252:
       B = majorcredit * majorgrade
       majorcredit = majorcredit + df1['Credit'][i]
       majorgrade = (B + df1['Credit'][i]*df1['Grade'][i])/majorcredit
@@ -244,15 +244,12 @@ for ind in df.index:
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-st.text(df)
-
 
 result = SplitData(df,0.2)
 X_train = result[0]
 X_test = result[1]
 y_train = result[2]
 y_test = result[3]
-
 
 model_svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
 model_svm.fit(X_train,y_train)
@@ -262,72 +259,52 @@ acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')
 
-#แทนค่าด้วยเลขOneHotEncoder
-p7=0
-p8=0
-p9=0
-p10=0
-p11=0
-p13=0
-p14=0
-p15=0
 
-if gender1 == 'ชาย':
-  p7 = 1
-  p8 = 0
-else:
-  p7 = 0
-  p8 = 1
-if part_time1  == 'ทำ':
-  p9 = 1
-  p10 = 0
-else:
-  p9 = 0
-  p10 = 1
-if fav1 == 'ชอบ':
-  p11 = 1
-  p12 = 0
-else:
-  p11 = 0
-  p12 = 1
-if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
-  p13 = 1
-  p14 = 0
-  p15 = 0
-elif ExamPrepare1 == 'ทบทวน อ่านหนังสือคนเดียว':
-  p13 = 0
-  p14 = 1
-  p15 = 0
-else:
-  p13 = 0
-  p14 = 0
-  p15 = 1
+def oh1(df):
+  df.ExamPrepare = df.ExamPrepare.apply(cExamPre)
+  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
+  ohetransform = ohe.fit_transform(df[['gender1','ExamPrepare1']])
+  df = pd.concat([df, ohetransform],axis =1)
+  return df
 
 df = pd.DataFrame()
-df = pd.DataFrame(columns=['grade','GenEdBe','MajorBe','OtherBe','gradeGenEd','gradeMajor','gradeOther'])
-grade=[]
-GenEdBe=[]
-MajorBe=[]
-OtherBe=[]
-grade.append(grade1)
+df = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','gradeGenEd','gradeMajor','gradeOther'])
+
+gender = []
+part_time = []
+gradeText=[]
+Good_math=[]
+GenEdCA=[]
+MajorCA=[]
+OtherCA=[]
+ExamPre=[]
+gender.append(gender1)
+part_time.append(part_time1)
+gradeText.append(grade1)
+Good_math.append(fav1)
 GenEdBe.append(GenEdBe1)
 MajorBe.append(MajorBe1)
 OtherBe.append(OtherBe1)
-df['grade'] = grade
+ExamPre.append(ExamPrepare1)
+df['gender']=gender
+df['part_time]=part_time
+df['gradeText'] = gradeText
+df['Good_math']=Good_time
 df['GenEdBe'] = GenEdBe
 df['MajorBe'] = MajorBe
 df['OtherBe'] = OtherBe
+df['ExamPre'] = ExamPre
 df['gradeGenEd'] = None
 df['gradeMajor'] = None
 df['gradeOther'] = None
-
+st.text(df)
 #คลีนข้อมูล57
 Behavior(df.GenEdBe) 
 Behavior(df.MajorBe) 
 Behavior(df.OtherBe) 
 
 for ind in df.index:
-  res = CleanText(df['gradeText'][ind],df['major'][ind])
+  res = CleanText(df['gradeText'][ind])
   df['gradeGenEd'][ind] = res[0]
   df['gradeMajor'][ind] = res[1]
   df['gradeOther'][ind] = res[2]

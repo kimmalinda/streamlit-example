@@ -258,7 +258,59 @@ acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')
 
+def CleanTextpred(text0):
+  course=[]
+  credit=[]
+  grade=[]
+  text = text0.replace("\t", " ")
+  text = text.replace("\n"," ")
+  text = text.replace("/"," ")
+  text = text.split(" ")
+  text =list(filter(None, text))
+  num_of_row = len(text)
+  for i in range(num_of_row):
+    if text[i][0].isnumeric() and len(text[i]) == 6:
+      course.append(int(text[i]))
+      for j in range(i+1,i+10):
+        if text[j].isnumeric() and not text[j+1].isnumeric():
+          credit.append(int(text[j]))
+          grade.append(text[j+1])
+          break
 
+  df1 = pd.DataFrame()
+  df1 = pd.DataFrame(columns=['Course', 'Credit','Grade'])
+  df1['Course'] = course
+  df1['Credit'] = credit
+  df1['Grade'] = grade
+  df1.Grade = df1.Grade.apply(GradeToNum)
+
+ 
+      
+  genEdgrade = 0
+  genEdcredit = 0
+  majorgrade = 0
+  majorcredit = 0
+  othergrade = 0
+  othercredit = 0
+
+
+  for i in range(len(df1)):
+    if df1['Course'][i] // 1000 == 1:
+      if df1['Course'][i] != 1281:
+        A = genEdcredit * genEdgrade
+        genEdcredit = genEdcredit + df1['Credit'][i]
+        genEdgrade = (A + df1['Credit'][i]*df1['Grade'][i])/genEdcredit
+      else:
+          continue
+    elif df1['Course'][i] // 1000 == 252:
+      B = majorcredit * majorgrade
+      majorcredit = majorcredit + df1['Credit'][i]
+      majorgrade = (B + df1['Credit'][i]*df1['Grade'][i])/majorcredit
+    else:
+      C = othercredit * othergrade
+      othercredit = othercredit + df1['Credit'][i]
+      othergrade = (C + df1['Credit'][i]*df1['Grade'][i])/othercredit
+  return [genEdgrade,majorgrade,othergrade]
 p7=0
 p8=0
 p9=0
@@ -333,7 +385,7 @@ df.MajorCA = df.MajorCA.apply(Behavior)
 df.OtherCA = df.OtherCA.apply(Behavior)
 
 for ind in df.index:
-  res = CleanText(df['gradeText'][ind],'คณิตศาสตร์')
+  res = CleanTextpred(df['gradeText'][ind])
   df['GPAGenEd'][ind] = res[0]
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]

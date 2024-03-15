@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import math
 import random
+from sklearn.preprocessing import OneHotEncoder
 #Model
 from sklearn.metrics import classification_report, accuracy_score, make_scorer, confusion_matrix
 from sklearn.model_selection import train_test_split
@@ -57,32 +58,12 @@ def cExamPre(a):
     b = "No"
   return b
 
-#แทนค่าด้วยเลขOneHotEncoder
-p7=0
-p8=0
-p11=0
-p13=0
-p14=0
-p15=0
-
-if gender == 'ชาย':
-  p7 = 1
-  p8 = 0
-else:
-  p7 = 0
-  p8 = 1
-if ExamPrepare == 'ติวหนังสือกับกลุ่มเพื่อน':
-  p13 = 1
-  p14 = 0
-  p15 = 0
-elif ExamPrepare1 == 'ทบทวน อ่านหนังสือคนเดียว':
-  p13 = 0
-  p14 = 1
-  p15 = 0
-else:
-  p13 = 0
-  p14 = 0
-  p15 = 1
+def oh(df):
+  df.ExamPrepare = df.ExamPrepare.apply(cExamPre)
+  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
+  ohetransform = ohe.fit_transform(df[['gender','ExamPrepare']])
+  df = pd.concat([df, ohetransform],axis =1)
+  return df
 
 def choice1(a):
   if df['part_time'] == "ทำ":
@@ -242,14 +223,14 @@ def SplitData(df,test_size):
   return [X_train,X_test,y_train,y_test]
 
 df = pd.read_csv(r'ver57math_BE.csv')
-#เพิ่มคอลัมเกรด
+
 df['GPAGenEd'] = None
 df['GPAMajor'] = None
 df['GPAOther'] = None
 
-
-df.Good_math = df.Good_math.apply(choice)
-df.part_time= df.part_time.apply(choice)
+df = oh(df)
+df.part_time= df.part_time.apply(choice1)
+df.Good_math = df.Good_math.apply(choice2)
 df.GenEdCA = df.GenEdCA.apply(Behavior)
 df.MajorCA = df.MajorCA.apply(Behavior)
 df.OtherCA = df.OtherCA.apply(Behavior)
@@ -261,15 +242,8 @@ for ind in df.index:
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
-df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-for ind in df.index:
-  res = CleanText(df['gradeText'][ind],df['major'][ind])
-  df['GPAGenEd'][ind] = res[0]
-  df['GPAMajor'][ind] = res[1]
-  df['GPAOther'][ind] = res[2]
-  
-df = df.drop(df.columns[[0,1,3,9]], axis=1)
-df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
+
+st.text(df)
 
 
 result = SplitData(df,0.2)

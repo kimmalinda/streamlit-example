@@ -346,7 +346,7 @@ else:
   p15 = 0
   
 dfNew = pd.DataFrame()
-dfNew = pd.DataFrame(columns=[,'gradeText','GenEdCA','MajorCA','OtherCA','GPAGenEd','GPAMajor','GPAOther'])
+dfNew = pd.DataFrame(columns=['gradeText','GenEdCA','MajorCA','OtherCA','GPAGenEd','GPAMajor','GPAOther'])
 
 
 

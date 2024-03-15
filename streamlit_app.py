@@ -243,7 +243,7 @@ for ind in df.index:
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-st.text(df)
+
 result = SplitData(df,0.2)
 X_train = result[0]
 X_test = result[1]
@@ -253,7 +253,6 @@ y_test = result[3]
 model_svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
 model_svm.fit(X_train,y_train)
 pred = model_svm.predict(X_test)
-
 acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')

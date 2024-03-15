@@ -288,7 +288,7 @@ ExamPre.append(ExamPrepare1)
 dfNew['gender']=gender
 dfNew['part_time']=part_time
 dfNew['gradeText'] = gradeText
-dfNew['Good_math']=Good_time
+dfNew['Good_math']=Good_math
 dfNew['GenEdCA'] = GenEdCA
 dfNew['MajorCA'] = MajorCA
 dfNew['OtherCA'] = OtherCA

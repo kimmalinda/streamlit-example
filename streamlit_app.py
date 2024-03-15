@@ -253,6 +253,7 @@ y_test = result[3]
 model_svm = SVC(C=1,kernel='poly',gamma=0.1,degree=3)
 model_svm.fit(X_train,y_train)
 pred = model_svm.predict(X_test)
+
 acc = model_svm.score(X_test,y_test)
 
 joblib.dump(model_svm, 'svm_model.sav')
@@ -266,7 +267,7 @@ def oh1(df):
   return df
 
 dfNew = pd.DataFrame()
-dfNew = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','gradeGenEd','gradeMajor','gradeOther'])
+dfNew = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','GPAGenEd','GPAMajor','GPAOther'])
 
 gender = []
 part_time = []
@@ -292,12 +293,12 @@ dfNew['GenEdCA'] = GenEdCA
 dfNew['MajorCA'] = MajorCA
 dfNew['OtherCA'] = OtherCA
 dfNew['ExamPre'] = ExamPre
-dfNew['gradeGenEd'] = None
-dfNew['gradeMajor'] = None
-dfNew['gradeOther'] = None
+dfNew['GPAGenEd'] = None
+dfNew['GPAMajor'] = None
+dfNew['GPAOther'] = None
 
 #คลีนข้อมูล57
-df = oh(dfNew)
+df = oh1(dfNew)
 df.part_time= df.part_time.apply(choice1)
 df.Good_math = df.Good_math.apply(choice2)
 df.GenEdCA = df.GenEdCA.apply(Behavior)
@@ -309,12 +310,12 @@ for ind in df.index:
   df['GPAGenEd'][ind] = res[0]
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
-df = df.drop(df.columns[[0,1,3,9]], axis=1)
+df = df.drop(df.columns[[0,2,7]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-arr = np.array([[df_pred.GenEdBe[0],df_pred.MajorBe[0],df_pred.OtherBe[0],df_pred.gradeGenEd[0],df_pred.gradeMajor[0],df_pred.gradeOther[0],
-p7,p8,p9,p10,p11,p12,p13,p14,p15]])
+arr = np.array([[df.part_time[0],df.Good_math[0],df.df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df_pred.GPAMajor[0],
+                 df.GPAOther[0],df.male[0],df.female[0],df.ExamPre_No[0],df.ExamPre_own[0],df.ExamPre_w_friend[0]]])
 
 #result
 if re:
   result = predict(arr)
-  st.text(Class[result[0]])
+  st.text([result[0]])

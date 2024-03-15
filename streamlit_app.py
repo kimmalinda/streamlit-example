@@ -15,8 +15,8 @@ from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import accuracy_score
 from sklearn.svm import SVC
 
-st.title('การทำนายระดับผลการเรียน')
-st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
+st.title('การพยากรณ์ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรจากผลการเรียนแต่ละรายวิชาในชั้นปีที่ 1 และปัจจัยที่ส่งผลต่อผลการเรียนเฉลี่ย')
+st.markdown('กรุณากรอกข้อมูลให้ครบถ้วนเพื่อใช้ในการทำนาย')
 st.image("ขั้นตอน.png",caption='ขั้นตอนวิธีการกรอกผลการเรียนแต่รายวิชาในชั้นปีที่ 1')
 
 col1, col2 = st.columns(2)

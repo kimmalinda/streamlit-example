@@ -292,9 +292,9 @@ else:
   p15 = 0
   
 dfNew = pd.DataFrame()
-dfNew = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','GPAGenEd','GPAMajor','GPAOther'])
+dfNew = pd.DataFrame(columns=['part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','GPAGenEd','GPAMajor','GPAOther'])
 
-gender = []
+
 part_time = []
 gradeText=[]
 Good_math=[]
@@ -335,7 +335,7 @@ for ind in df.index:
   df['GPAGenEd'][ind] = res[0]
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
-df = df.drop(df.columns[[0,2,7]], axis=1)
+df = df.drop(df.columns[[1]], axis=1)
 st.text(df)
 arr = np.array([[df.part_time[0],df.Good_math[0],df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
                  df.GPAOther[0],p7,p8,p13,p14,p15]])

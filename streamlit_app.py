@@ -116,7 +116,7 @@ def GradeToNum(a):
     b = 0
   return b
 
-def CleanText(text0,major):
+def CleanText(text0):
   course=[]
   credit=[]
   grade=[]
@@ -143,23 +143,6 @@ def CleanText(text0,major):
   df1.Grade = df1.Grade.apply(GradeToNum)
 
   
-  if major == 'คณิตศาสตร์':
-    mc = 252
-  elif major == "สถิติ":
-    mc = 255
-  elif major ==  "เคมี":
-    mc = 256
-  elif major ==  "ชีววิทยา":
-    mc = 258
-  elif major ==  "ฟิสิกส์":
-    mc = 261
-  elif major ==  "ฟิสิกส์ประยุกต์":
-    mc = 262
-  elif major == "วิทยาการคอมพิวเตอร์":
-    mc = 254
-  elif major ==  "เทคโนโลยีสารสนเทศ":
-    mc = 273
-    
   genEdgrade = 0
   genEdcredit = 0
   majorgrade = 0
@@ -267,8 +250,8 @@ def oh1(df):
   df = pd.concat([df, ohetransform],axis =1)
   return df
 
-df = pd.DataFrame()
-df = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','gradeGenEd','gradeMajor','gradeOther'])
+dfNew = pd.DataFrame()
+dfNew = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','gradeGenEd','gradeMajor','gradeOther'])
 
 gender = []
 part_time = []
@@ -282,22 +265,22 @@ gender.append(gender1)
 part_time.append(part_time1)
 gradeText.append(grade1)
 Good_math.append(fav1)
-GenEdBe.append(GenEdBe1)
-MajorBe.append(MajorBe1)
-OtherBe.append(OtherBe1)
+GenEdCA.append(GenEdBe1)
+MajorCA.append(MajorBe1)
+OtherCA.append(OtherBe1)
 ExamPre.append(ExamPrepare1)
-df['gender']=gender
-df['part_time']=part_time
-df['gradeText'] = gradeText
-df['Good_math']=Good_time
-df['GenEdBe'] = GenEdBe
-df['MajorBe'] = MajorBe
-df['OtherBe'] = OtherBe
-df['ExamPre'] = ExamPre
-df['gradeGenEd'] = None
-df['gradeMajor'] = None
-df['gradeOther'] = None
-st.text(df)
+dfNew['gender']=gender
+dfNew['part_time']=part_time
+dfNew['gradeText'] = gradeText
+dfNew['Good_math']=Good_time
+dfNew['GenEdCA'] = GenEdCA
+dfNew['MajorCA'] = MajorCA
+dfNew['OtherCA'] = OtherCA
+dfNew['ExamPre'] = ExamPre
+dfNew['gradeGenEd'] = None
+dfNew['gradeMajor'] = None
+dfNew['gradeOther'] = None
+st.text(dfNew)
 #คลีนข้อมูล57
 Behavior(df.GenEdBe) 
 Behavior(df.MajorBe) 

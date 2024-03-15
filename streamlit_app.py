@@ -311,10 +311,8 @@ for ind in df.index:
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,2,7]], axis=1)
-st.text(df)
-df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
 arr = np.array([[df.part_time[0],df.Good_math[0],df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
-                 df.GPAOther[0],df.male[0],df.female[0],df.ExamPre_No[0],df.ExamPre_own[0],df.ExamPre_w_friend[0]]])
+                 df.GPAOther[0],df.gender_ชาย[0],df.gender_หญิง[0],df.ExamPre_No[0],df.ExamPre_own[0],df.ExamPre_w_friend[0]]])
 
 #result
 if re:

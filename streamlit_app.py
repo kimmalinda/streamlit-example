@@ -265,7 +265,32 @@ def oh1(df):
   ohetransform = ohe.fit_transform(df[['gender','ExamPre']])
   df = pd.concat([df, ohetransform],axis =1)
   return df
+p7=0
+p8=0
 
+p13=0
+p14=0
+p15=0
+
+if gender1 == 'ชาย':
+  p7 = 1
+  p8 = 0
+else:
+  p7 = 0
+  p8 = 1
+if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
+  p13 = 0
+  p14 = 0
+  p15 = 1
+elif ExamPrepare1 == 'ทบทวน อ่านหนังสือคนเดียว':
+  p13 = 0
+  p14 = 1
+  p15 = 0
+else:
+  p13 = 1
+  p14 = 0
+  p15 = 0
+  
 dfNew = pd.DataFrame()
 dfNew = pd.DataFrame(columns=['gender','part_time','gradeText','Good_math','GenEdCA','MajorCA','OtherCA','ExamPre','GPAGenEd','GPAMajor','GPAOther'])
 
@@ -277,28 +302,28 @@ GenEdCA=[]
 MajorCA=[]
 OtherCA=[]
 ExamPre=[]
-gender.append(gender1)
+
 part_time.append(part_time1)
 gradeText.append(grade1)
 Good_math.append(fav1)
 GenEdCA.append(GenEdBe1)
 MajorCA.append(MajorBe1)
 OtherCA.append(OtherBe1)
-ExamPre.append(ExamPrepare1)
-dfNew['gender']=gender
+
+
 dfNew['part_time']=part_time
 dfNew['gradeText'] = gradeText
 dfNew['Good_math']=Good_math
 dfNew['GenEdCA'] = GenEdCA
 dfNew['MajorCA'] = MajorCA
 dfNew['OtherCA'] = OtherCA
-dfNew['ExamPre'] = ExamPre
+
 dfNew['GPAGenEd'] = None
 dfNew['GPAMajor'] = None
 dfNew['GPAOther'] = None
 
 #คลีนข้อมูล57
-df = oh1(dfNew)
+
 df.part_time= df.part_time.apply(choice1)
 df.Good_math = df.Good_math.apply(choice2)
 df.GenEdCA = df.GenEdCA.apply(Behavior)
@@ -313,7 +338,7 @@ for ind in df.index:
 df = df.drop(df.columns[[0,2,7]], axis=1)
 st.text(df)
 arr = np.array([[df.part_time[0],df.Good_math[0],df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
-                 df.GPAOther[0],df.gender_ชาย[0],df.gender_หญิง[0],df.ExamPre_No[0],df.ExamPre_own[0],df.ExamPre_w_friend[0]]])
+                 df.GPAOther[0],p7,p8,p13,p14,p15]])
 
 #result
 if re:

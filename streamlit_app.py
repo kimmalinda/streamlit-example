@@ -66,16 +66,16 @@ def oh(df):
   return df
 
 def choice1(a):
-  if df['part_time'] == "ทำ":
+  if a == "ทำ":
     b = 1
-  elif df['part_time'] =="ไม่ได้ทำ":
+  elif a =="ไม่ได้ทำ":
     b = 0
   return b
 
 def choice2(a):
-  if df['Good_math'] == "ชอบ":
+  if a == "ชอบ":
     b = 1
-  elif df['Good_math'] =="ไม่ชอบ":
+  elif a=="ไม่ชอบ":
     b = 0
   return b
 

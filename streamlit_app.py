@@ -287,7 +287,7 @@ MajorBe.append(MajorBe1)
 OtherBe.append(OtherBe1)
 ExamPre.append(ExamPrepare1)
 df['gender']=gender
-df['part_time]=part_time
+df['part_time']=part_time
 df['gradeText'] = gradeText
 df['Good_math']=Good_time
 df['GenEdBe'] = GenEdBe

@@ -380,19 +380,19 @@ dfNew['GPAOther'] = None
 #คลีนข้อมูล57
 
 
-df.GenEdCA = df.GenEdCA.apply(Behavior)
-df.MajorCA = df.MajorCA.apply(Behavior)
-df.OtherCA = df.OtherCA.apply(Behavior)
+dfNew.GenEdCA = dfNew.GenEdCA.apply(Behavior)
+dfNew.MajorCA = dfNew.MajorCA.apply(Behavior)
+dfNew.OtherCA = dfNew.OtherCA.apply(Behavior)
 
 for ind in df.index:
-  res = CleanTextpred(df['gradeText'][ind])
-  df['GPAGenEd'][ind] = res[0]
-  df['GPAMajor'][ind] = res[1]
-  df['GPAOther'][ind] = res[2]
-df = df.drop(df.columns[[1]], axis=1)
-st.text(df)
-arr = np.array([[p9,p11,df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
-                 df.GPAOther[0],p7,p8,p13,p14,p15]])
+  res = CleanTextpred(dfNew['gradeText'][ind])
+  dfNew['GPAGenEd'][ind] = res[0]
+  dfNew['GPAMajor'][ind] = res[1]
+  dfNew['GPAOther'][ind] = res[2]
+dfNew = dfNew.drop(dfNew.columns[[1]], axis=1)
+st.text(dfNew)
+arr = np.array([[p9,p11,dfNew.GenEdCA[0],dfNew.MajorCA[0],dfNew.OtherCA[0],dfNew.GPAGenEd[0],dfNew.GPAMajor[0],
+                 dfNew.GPAOther[0],p7,p8,p13,p14,p15]])
 
 #result
 if re:

@@ -400,5 +400,11 @@ if re:
   col1,mid, col2 = st.columns([1,1,30])
   with col1:
     st.image('มง.png', width=40)
+    st.image('m.png', width=40)
+    st.image('Lo.png', width=40)
+    st.image('be.png', width=40)
   with col2:
     st.text('Honor Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 3.25 ขึ้นไป')
+    st.text('Medium Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.75 - 3.24')
+    st.text('Lower Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.25 - 2.74')
+    st.text('Beware Class หมายถึง ผลการเรียนเฉลี่ยต่ำกว่า 2.25')

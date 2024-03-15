@@ -65,14 +65,14 @@ def oh(df):
   df = pd.concat([df, ohetransform],axis =1)
   return df
 
-def choice1(a):
+def choice(a):
   if a == "ทำ":
     c = 1
   elif a =="ไม่ได้ทำ":
     c = 0
   return c
 
-def choice2(a):
+def choice_fav(a):
   if a == "ชอบ":
     b = 1
   elif a=="ไม่ชอบ":
@@ -229,8 +229,8 @@ df['GPAMajor'] = None
 df['GPAOther'] = None
 
 df = oh(df)
-df.part_time= df.part_time.apply(choice1)
-df.Good_math = df.Good_math.apply(choice2)
+df.part_time= df.part_time.apply(choice)
+df.Good_math = df.Good_math.apply(choice_fav)
 df.GenEdCA = df.GenEdCA.apply(Behavior)
 df.MajorCA = df.MajorCA.apply(Behavior)
 df.OtherCA = df.OtherCA.apply(Behavior)
@@ -317,8 +317,8 @@ dfNew['GPAOther'] = None
 
 #คลีนข้อมูล57
 
-df.part_time= df.part_time.apply(choice1)
-df.Good_math = df.Good_math.apply(choice2)
+df.part_time= df.part_time.apply(choice)
+df.Good_math = df.Good_math.apply(choice_fav)
 df.GenEdCA = df.GenEdCA.apply(Behavior)
 df.MajorCA = df.MajorCA.apply(Behavior)
 df.OtherCA = df.OtherCA.apply(Behavior)

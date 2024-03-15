@@ -397,12 +397,12 @@ if re:
   result = predict(arr)
   st.text([result[0]])
   st.write("เกณฑ์การให้ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรดังนี้")
-  col1,mid, col2 = st.columns([1,1,30])
+  col1,mid, col2 = st.columns([1,1,50])
   with col1:
-    st.image('มง.png', width=40)
-    st.image('m.png', width=40)
-    st.image('Lo.png', width=40)
-    st.image('be.png', width=40)
+    st.image('มง.png', width=20)
+    st.image('m.png', width=20)
+    st.image('Lo.png', width=20)
+    st.image('be.png', width=20)
   with col2:
     st.text('Honor Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 3.25 ขึ้นไป')
     st.text('Medium Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.75 - 3.24')

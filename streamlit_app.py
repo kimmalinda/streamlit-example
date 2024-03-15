@@ -243,7 +243,7 @@ for ind in df.index:
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
 df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
-
+st.text(df)
 result = SplitData(df,0.2)
 X_train = result[0]
 X_test = result[1]
@@ -296,19 +296,22 @@ dfNew['ExamPre'] = ExamPre
 dfNew['gradeGenEd'] = None
 dfNew['gradeMajor'] = None
 dfNew['gradeOther'] = None
-st.text(dfNew)
+
 #คลีนข้อมูล57
-Behavior(df.GenEdBe) 
-Behavior(df.MajorBe) 
-Behavior(df.OtherBe) 
+df = oh(dfNew)
+df.part_time= df.part_time.apply(choice1)
+df.Good_math = df.Good_math.apply(choice2)
+df.GenEdCA = df.GenEdCA.apply(Behavior)
+df.MajorCA = df.MajorCA.apply(Behavior)
+df.OtherCA = df.OtherCA.apply(Behavior)
 
 for ind in df.index:
   res = CleanText(df['gradeText'][ind],'คณิตศาสตร์')
-  df['gradeGenEd'][ind] = res[0]
-  df['gradeMajor'][ind] = res[1]
-  df['gradeOther'][ind] = res[2]
-
-df_pred = df.drop(df.columns[[0]], axis=1)
+  df['GPAGenEd'][ind] = res[0]
+  df['GPAMajor'][ind] = res[1]
+  df['GPAOther'][ind] = res[2]
+df = df.drop(df.columns[[0,1,3,9]], axis=1)
+df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
 arr = np.array([[df_pred.GenEdBe[0],df_pred.MajorBe[0],df_pred.OtherBe[0],df_pred.gradeGenEd[0],df_pred.gradeMajor[0],df_pred.gradeOther[0],
 p7,p8,p9,p10,p11,p12,p13,p14,p15]])
 

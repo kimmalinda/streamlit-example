@@ -1,5 +1,6 @@
 import streamlit as st
 import joblib
+from PIL import Image
 #Data
 import numpy as np
 import pandas as pd
@@ -16,7 +17,8 @@ from sklearn.svm import SVC
 
 st.title('การทำนายระดับผลการเรียน')
 st.markdown('กรุณากรอกข้อมูลให้ครบเพื่อใช้ในการทำนาย')
-st.header('ผลการเรียนแต่ละรายวิชาชั้นปีที่ 1')
+st.image("ขั้นตอน.png",caption='ขั้นตอนวิธีการกรอกผลการเรียนแต่รายวิชาในชั้นปีที่ 1')
+
 col1, col2 = st.columns(2)
 with col1:
   st.text('ผลการเรียนชั้นปีที่ 1')

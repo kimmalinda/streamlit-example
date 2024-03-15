@@ -396,9 +396,9 @@ arr = np.array([[p9,p11,dfNew.GenEdCA[0],dfNew.MajorCA[0],dfNew.OtherCA[0],dfNew
 if re:
   result = predict(arr)
   st.text([result[0]])
-  st.write("เกณฑ์ระดับผลการเรียนเฉลี่ยตลอดหลักสูตร")
+  st.write("เกณฑ์การให้ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรดังนี้")
   col1, mid, col2 = st.beta_columns([1,1,20])
   with col1:
-    st.image('row_2_col_1.jpg', width=60)
+    st.image('มง.png', width=60)
   with col2:
-    st.write('A Name')
+    st.write('Honor Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 3.25 ขึ้นไป')

@@ -243,7 +243,7 @@ for ind in df.index:
   df['GPAMajor'][ind] = res[1]
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[0,1,3,9]], axis=1)
-
+df.rename(columns = {'gender_ชาย':'male','gender_หญิง':'female'}, inplace = True)
 st.text(df)
 
 

@@ -67,10 +67,10 @@ def oh(df):
 
 def choice1(a):
   if a == "ทำ":
-    b = 1
+    c = 1
   elif a =="ไม่ได้ทำ":
-    b = 0
-  return b
+    c = 0
+  return c
 
 def choice2(a):
   if a == "ชอบ":

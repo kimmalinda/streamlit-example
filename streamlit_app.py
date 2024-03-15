@@ -397,7 +397,7 @@ if re:
   result = predict(arr)
   st.text([result[0]])
   st.write("เกณฑ์การให้ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรดังนี้")
-  col1, mid, col2 = st.beta_columns([1,1,20])
+  col1, col2 = st.columns(2)
   with col1:
     st.image('มง.png', width=60)
   with col2:

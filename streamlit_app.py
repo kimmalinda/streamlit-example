@@ -116,7 +116,7 @@ def GradeToNum(a):
     b = 0
   return b
 
-def CleanText(text0):
+def CleanText(text0,major):
   course=[]
   credit=[]
   grade=[]
@@ -142,7 +142,24 @@ def CleanText(text0):
   df1['Grade'] = grade
   df1.Grade = df1.Grade.apply(GradeToNum)
 
-  
+  match major:
+    case "Math":
+      mc = 252
+    case "Stat":
+      mc = 255
+    case "Chem":
+      mc = 256
+    case "Bio":
+      mc = 258
+    case "Phys":
+      mc = 261
+    case "App-Phys":
+      mc = 262
+    case "Com-Sci":
+      mc = 254
+    case "IT":
+      mc = 273
+      
   genEdgrade = 0
   genEdcredit = 0
   majorgrade = 0
@@ -159,7 +176,7 @@ def CleanText(text0):
         genEdgrade = (A + df1['Credit'][i]*df1['Grade'][i])/genEdcredit
       else:
           continue
-    elif df1['Course'][i] // 1000 == 252:
+    elif df1['Course'][i] // 1000 == mc:
       B = majorcredit * majorgrade
       majorcredit = majorcredit + df1['Credit'][i]
       majorgrade = (B + df1['Credit'][i]*df1['Grade'][i])/majorcredit
@@ -244,9 +261,9 @@ joblib.dump(model_svm, 'svm_model.sav')
 
 
 def oh1(df):
-  df.ExamPrepare = df.ExamPrepare.apply(cExamPre)
+  df.ExamPre = df.ExamPre.apply(cExamPre)
   ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender1','ExamPrepare1']])
+  ohetransform = ohe.fit_transform(df[['gender','ExamPre']])
   df = pd.concat([df, ohetransform],axis =1)
   return df
 
@@ -287,7 +304,7 @@ Behavior(df.MajorBe)
 Behavior(df.OtherBe) 
 
 for ind in df.index:
-  res = CleanText(df['gradeText'][ind])
+  res = CleanText(df['gradeText'][ind],'คณิตศาสตร์')
   df['gradeGenEd'][ind] = res[0]
   df['gradeMajor'][ind] = res[1]
   df['gradeOther'][ind] = res[2]

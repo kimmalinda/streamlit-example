@@ -51,9 +51,9 @@ def Behavior(a):
 
 def cExamPre(a):
   if a =="ทบทวน อ่านหนังสือคนเดียว":
-    b = "w_friend"
-  elif a== "ติวหนังสือกับกลุ่มเพื่อน":
     b = "own"
+  elif a== "ติวหนังสือกับกลุ่มเพื่อน":
+    b = "w_friend"
   else: 
     b = "No"
   return b

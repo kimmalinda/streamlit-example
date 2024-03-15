@@ -67,10 +67,10 @@ def oh(df):
 
 def choice(a):
   if a == "ทำ":
-    c = 1
+    b = 1
   elif a =="ไม่ได้ทำ":
-    c = 0
-  return c
+    b = 0
+  return b
 
 def choice_fav(a):
   if a == "ชอบ":
@@ -261,6 +261,8 @@ joblib.dump(model_svm, 'svm_model.sav')
 
 p7=0
 p8=0
+p9=0
+p11=0
 p13=0
 p14=0
 p15=0
@@ -271,6 +273,14 @@ if gender1 == 'ชาย':
 else:
   p7 = 0
   p8 = 1
+if part_time1  == 'ทำ':
+  p9 = 1
+else:
+  p9 = 0
+if fav1 == 'ชอบ':
+  p11 = 1
+else:
+  p11 = 0
 if ExamPrepare1 == 'ติวหนังสือกับกลุ่มเพื่อน':
   p13 = 0
   p14 = 0
@@ -317,8 +327,7 @@ dfNew['GPAOther'] = None
 
 #คลีนข้อมูล57
 
-df.part_time= df.part_time.apply(choice)
-df.Good_math = df.Good_math.apply(choice_fav)
+
 df.GenEdCA = df.GenEdCA.apply(Behavior)
 df.MajorCA = df.MajorCA.apply(Behavior)
 df.OtherCA = df.OtherCA.apply(Behavior)
@@ -330,7 +339,7 @@ for ind in df.index:
   df['GPAOther'][ind] = res[2]
 df = df.drop(df.columns[[1]], axis=1)
 st.text(df)
-arr = np.array([[df.part_time[0],df.Good_math[0],df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
+arr = np.array([[p9,p11,df.GenEdCA[0],df.MajorCA[0],df.OtherCA[0],df.GPAGenEd[0],df.GPAMajor[0],
                  df.GPAOther[0],p7,p8,p13,p14,p15]])
 
 #result

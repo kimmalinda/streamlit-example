@@ -386,7 +386,7 @@ for ind in dfNew.index:
   dfNew['GPAMajor'][ind] = res[1]
   dfNew['GPAOther'][ind] = res[2]
 dfNew = dfNew.drop(dfNew.columns[[0]], axis=1)
-st.text(dfNew)
+
 arr = np.array([[p9,p11,dfNew.GenEdCA[0],dfNew.MajorCA[0],dfNew.OtherCA[0],dfNew.GPAGenEd[0],dfNew.GPAMajor[0],
                  dfNew.GPAOther[0],p7,p8,p13,p14,p15]])
 

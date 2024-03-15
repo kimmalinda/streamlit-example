@@ -140,7 +140,8 @@ def CleanText(text0,major):
   df1['Course'] = course
   df1['Credit'] = credit
   df1['Grade'] = grade
-  GradeToNum()
+  df1.Grade = df1.Grade.apply(GradeToNum)
+
   
   if major == 'คณิตศาสตร์':
     mc = 252

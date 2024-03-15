@@ -226,18 +226,21 @@ arr = np.array([[df1.gradeGenEd[0],df1.gradeMajor[0],df1.gradeOther[0]]])
 
 #result
 if re:
-  result = predict(arr)
-  st.text([result[0]])
-  st.write("เกณฑ์การให้ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรดังนี้")
-  col1,mid, col2 = st.columns([1,1,50])
-  with col1:
-    st.image('มง.png', width=20)
-    st.image('m.png', width=20)
-    st.image('Lo.png', width=20)
-    st.image('be.png', width=20)
-  with col2:
-    st.text('Honor Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 3.25 ขึ้นไป')
-    st.text('Medium Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.75 - 3.24')
-    st.text('Lower Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.25 - 2.74')
-    st.text('Beware Class หมายถึง ผลการเรียนเฉลี่ยต่ำกว่า 2.25')
+  if len(grade1) < 100:
+    st.text('กรุณากรอกผลการเรียนให้ครบถ้วน')
+  else:
+    result = predict(arr)
+    st.text([result[0]])
+    st.write("เกณฑ์การให้ระดับผลการเรียนเฉลี่ยตลอดหลักสูตรดังนี้")
+    col1,mid, col2 = st.columns([1,1,50])
+    with col1:
+      st.image('มง.png', width=20)
+      st.image('m.png', width=20)
+      st.image('Lo.png', width=20)
+      st.image('be.png', width=20)
+    with col2:
+      st.text('Honor Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 3.25 ขึ้นไป')
+      st.text('Medium Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.75 - 3.24')
+      st.text('Lower Class หมายถึง ผลการเรียนเฉลี่ยตั้งแต่ 2.25 - 2.74')
+      st.text('Beware Class หมายถึง ผลการเรียนเฉลี่ยต่ำกว่า 2.25')
 

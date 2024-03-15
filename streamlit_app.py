@@ -259,15 +259,8 @@ acc = model_svm.score(X_test,y_test)
 joblib.dump(model_svm, 'svm_model.sav')
 
 
-def oh1(df):
-  df.ExamPre = df.ExamPre.apply(cExamPre)
-  ohe = OneHotEncoder(handle_unknown='ignore',sparse_output=False).set_output(transform='pandas')
-  ohetransform = ohe.fit_transform(df[['gender','ExamPre']])
-  df = pd.concat([df, ohetransform],axis =1)
-  return df
 p7=0
 p8=0
-
 p13=0
 p14=0
 p15=0

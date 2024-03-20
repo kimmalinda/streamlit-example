@@ -139,11 +139,11 @@ def SplitData(df,test_size):
   C=[]
   D=[]
   for i in total_index:
-    if df['ClassGPAX'][i] == 'A':
+    if df['ClassGPAX'][i] == 'Honor Class':
       A.append(i)
-    elif df['ClassGPAX'][i] == 'B':
+    elif df['ClassGPAX'][i] == 'Medium Class':
       B.append(i)
-    elif df['ClassGPAX'][i] == 'C':
+    elif df['ClassGPAX'][i] == 'Lower Class':
       C.append(i)
     else:
       D.append(i)
